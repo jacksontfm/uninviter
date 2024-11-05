@@ -1,16 +1,19 @@
 import { useState } from 'react'
 
-export default function App() {
-  const [count, setCount] = useState(0)
+interface Props {
+  userName: string;
+  userId: number;
+}
+
+export default function App({ userName, userId }: Props) {
+
 
   return (
     <>
       <h1>Uninviter</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-      </div>
+      <div>the userId is {userId}</div>
+      <br/>
+      <div>the logged in user is {userName}</div>
     </>
   )
 }
