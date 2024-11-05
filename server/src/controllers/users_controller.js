@@ -5,13 +5,12 @@ const getUser = async (req, res) => {
     const email = req.body.user_email;
     console.log(email);
     try {
-        const userExists = await knex(USERS_TABLE).where("user_email", "=", email).first();
-        console.log(userExists);
-        if (!userExists) {
+        const user = await knex(USERS_TABLE).where("user_email", "=", email).first();
+        if (!user) {
             const newUser = knex(USERS_TABLE).insert({user_email: email});
             return res.status(200).send(newUser);
         }
-        res.status(200).send(userExists);
+        res.status(200).send(user);
     } catch (err) {
         res.status(500).send({
             message: "Error: cannot proceed"
