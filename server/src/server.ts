@@ -1,8 +1,9 @@
-const express = require('express');
-const cors = require('cors');
-require('dotenv').config();
+import express, { Express, Request, Response } from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+dotenv.config();
 
-const app = express();
+const app: Express = express();
 const PORT = process.env.PORT;
 
 app.use(cors());
@@ -13,6 +14,6 @@ app.listen(PORT, () => {
 });
 
 //default path
-app.get("", (req, res) => {
+app.get("/", (req: Request, res: Response) => {
     res.status(200).send("This is the Uninviter server");
 });
