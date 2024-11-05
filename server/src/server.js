@@ -1,11 +1,13 @@
 const express = require('express');
 const cors = require('cors');
-require('dotenv').config();
+const morgan = require('morgan');
+const templatesController = require('./controllers/templates_controller.js');
 
 const app = express();
 const PORT = process.env.PORT;
 
 app.use(cors());
+app.use(morgan('dev'));
 
 //server start
 app.listen(PORT, () => {
@@ -13,6 +15,9 @@ app.listen(PORT, () => {
 });
 
 //default path
-app.get("", (req, res) => {
+app.get("/", (req, res) => {
     res.status(200).send("This is the Uninviter server");
 });
+
+//templates
+app.get("/templates", templatesController.getTemplates);
