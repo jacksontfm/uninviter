@@ -1,11 +1,11 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "main": "dist/server.ts",
+  "main": "server.js",
   "scripts": {
-    "build": "npx tsc",
-    "start": "node ./dist/server.js",
-    "express": "nodemon ./src/server.ts",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./src/server.js",
+    "express": "nodemon ./src/server.js",
     "migrate": "knex migrate:latest",
     "seed": "knex seed:run"
   },
@@ -16,15 +16,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
-    "knex": "^3.1.0"
-  },
-  "devDependencies": {
-    "@types/cors": "^2.8.17",
-    "@types/express": "^5.0.0",
-    "@types/node": "^22.8.7",
-    "concurrently": "^9.1.0",
-    "nodemon": "^3.1.7",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.6.3"
+    "knex": "^3.1.0",
+    "nodemon": "^3.1.7"
   }
 }
