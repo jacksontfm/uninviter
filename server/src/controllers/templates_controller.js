@@ -12,4 +12,34 @@ const getTemplates = async (req, res) => {
     }
 };
 
-module.exports = { getTemplates }
+const createTemplate = async (req, res) => {
+    try {
+        res.status(200).send("template created");
+    } catch (err) {
+        res.status(500).send({
+            message: "Error: cannot create template"
+        });
+    }
+};
+
+const editTemplate = async (req, res) => {
+    try {
+        res.status(200).send("template edited");
+    } catch (err) {
+        res.status(500).send({
+            message: "Error: cannot edit template"
+        });
+    }
+};
+
+const deleteTemplate = async (req, res) => {
+    try {
+        res.status(200).send("template deleted");
+    } catch (err) {
+        res.status(500).send({
+            message: "Error: cannot delete template"
+        });
+    }
+};
+
+module.exports = { getTemplates, createTemplate, editTemplate, deleteTemplate }

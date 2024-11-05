@@ -21,3 +21,6 @@ app.get("/", (req, res) => {
 
 //templates
 app.get("/templates", templatesController.getTemplates);
+app.post("/templates", templatesController.createTemplate);
+app.patch("/templates", templatesController.editTemplate);
+app.delete("/templates", templatesController.deleteTemplate);
