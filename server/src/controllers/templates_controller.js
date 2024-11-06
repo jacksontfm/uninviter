@@ -13,10 +13,9 @@ const getTemplates = async (req, res) => {
 };
 
 const createTemplate = async (req, res) => {
-    console.log(req.body);
     try {
-        await knex(TEMPLATES_TABLE).insert({text: req.body});
-        res.status(200).send("Template created");
+        await knex(TEMPLATES_TABLE).insert({ text: req.body.text });
+        res.status(201).send("New template created");
     } catch (err) {
         res.status(500).send({
             message: "Error: cannot create template"
@@ -26,6 +25,7 @@ const createTemplate = async (req, res) => {
 
 const editTemplate = async (req, res) => {
     try {
+        await knex(TEMPLATES_TABLE).where({ id: req.body.id }).update({ text: req.body.text })
         res.status(200).send("Template edited");
     } catch (err) {
         res.status(500).send({
