@@ -25,8 +25,6 @@ export default function Landing() {
         if(result.id) {
             setLoggedIn(true);
             setUserId(result.id);
-        } else {
-            console.log("error");
         }
     }
 

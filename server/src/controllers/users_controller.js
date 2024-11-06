@@ -1,23 +1,16 @@
+const knex = require('../knex.js');
 const USERS_TABLE = 'users';
-const usersModel = require("../models/users_model.js")
 
 const getUser = async (req, res) => {
     const email = req.body.user_email;
     try {
-        const user = await usersModel.getUser(email);
+        const user = await knex(USERS_TABLE).where("user_email", "=", email).first();
         if (!user) {
-            const newUser = await usersModel.addUser(email);
-            return res.send(newUser);
-        } else {
-            return res.send({message: user});
+            await knex(USERS_TABLE).insert({ user_email: email });
+            const newUser = await knex(USERS_TABLE).where("user_email", "=", email).first();
+            return res.status(201).send(newUser);
         }
-        // const user = await knex(USERS_TABLE).where("user_email", "=", email).first();
-        // if (!user) {
-        //     const newUser = knex(USERS_TABLE).insert({user_email: email});
-        //     return res.status(201).send(newUser);
-        // } else {
-        //     res.status(200).send(user);
-        // }
+        res.status(200).send(user);
     } catch (err) {
         res.status(500).send({ message: "Error: cannot proceed" });
     }
