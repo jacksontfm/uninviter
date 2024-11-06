@@ -30,6 +30,10 @@ export default function Landing() {
         }
     }
 
+    function returnToStart() {
+        setLoggedIn(false);
+    }
+
     function validateEmail(userName: string) {
         if (userName.includes("@")) {
             return true;
@@ -41,7 +45,7 @@ export default function Landing() {
     return (
         <>
             {loggedIn ? (
-                <App userName={userName} userId={userId}/>
+                <App userName={userName} userId={userId} returnToStart={returnToStart}/>
             ) : (
                 <div>
                     <h1>Inviter</h1>
