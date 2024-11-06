@@ -24,8 +24,9 @@ const createTemplate = async (req, res) => {
 };
 
 const editTemplate = async (req, res) => {
+    const template_id = req.body.id;
     try {
-        await knex(TEMPLATES_TABLE).where({ id: req.body.id }).update({ text: req.body.text })
+        await knex(TEMPLATES_TABLE).where({ id: template_id }).update({ text: req.body.text });
         res.status(200).send("Template edited");
     } catch (err) {
         res.status(500).send({
@@ -35,7 +36,9 @@ const editTemplate = async (req, res) => {
 };
 
 const deleteTemplate = async (req, res) => {
+    const template_id = req.body.id;
     try {
+        await knex(TEMPLATES_TABLE).where({ id: template_id }).del();
         res.status(200).send("Template deleted");
     } catch (err) {
         res.status(500).send({

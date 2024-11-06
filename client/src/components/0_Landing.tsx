@@ -10,14 +10,16 @@ export default function Landing() {
     const URL = import.meta.env.VITE_API_URL;
 
     async function loginHandler (userName: string) {
-        const response = await fetch(`${URL}/users`, {
-            method: "POST",
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                user_email: userName
-            })
-        });
-        return response.json()
+        if (validateEmail(userName)) {
+            const response = await fetch(`${URL}/users`, {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    user_email: userName
+                })
+            });
+            return response.json()
+        }
     }
 
     async function login() {
@@ -25,6 +27,14 @@ export default function Landing() {
         if(result.id) {
             setLoggedIn(true);
             setUserId(result.id);
+        }
+    }
+
+    function validateEmail(userName: string) {
+        if (userName.includes("@")) {
+            return true;
+        } else {
+            return alert("Please enter a valid email address"); 
         }
     }
 

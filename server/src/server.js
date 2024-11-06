@@ -28,6 +28,9 @@ app.post("/users", usersController.getUser);
 app.delete("/users", usersController.deleteUser);
 
 //guests
+app.get("/guests", guestsController.getGuests);
+app.post("/guests", guestsController.addGuest);
+app.delete("/guests", guestsController.deleteGuest);
 
 //templates
 app.get("/templates", templatesController.getTemplates);
