@@ -9,6 +9,7 @@ const guestsController = require('./controllers/guests_controller.js');
 const app = express();
 const PORT = process.env.PORT;
 
+//middleware
 app.use(cors());
 app.use(bodyParser.json());
 app.use(morgan('dev'));
