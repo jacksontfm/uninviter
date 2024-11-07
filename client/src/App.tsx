@@ -20,7 +20,7 @@ interface Template {
   text: string;
 };
 
-export default function App({ userName, userId }: Props) {
+export default function App({ userName, userId, returnToStart }: Props) {
 
     //const [selectedGuest, setSelectedGuest] = useState<Guest>()
     //const [guests, setGuests] = useState<Guest[]>([]);
@@ -149,7 +149,7 @@ export default function App({ userName, userId }: Props) {
   return (
     <>
       <div>
-        <span className="italic">Welcome, {userName}</span>
+        <span className="italic">Welcome, {userName}</span><button onClick={() => returnToStart()}>Return to start</button>
       </div>
       <div>
         <select id="invited" size={10}/>
@@ -169,7 +169,7 @@ export default function App({ userName, userId }: Props) {
         ))}
       </div>
       {showModal && selectedTemplate && (
-        <div><Modal invitedGuests={invitedGuests} uninvitedGuests={uninvitedGuests} closeModal={closeModal} selectedTemplate={selectedTemplate}/></div>
+        <div><Modal invitedGuests={invitedGuests} uninvitedGuests={uninvitedGuests} closeModal={closeModal} selectedTemplate={selectedTemplate} returnToStart={returnToStart}/></div>
       )}
     </>
   )

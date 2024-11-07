@@ -16,9 +16,12 @@ interface Props {
     uninvitedGuests: Guest[];
     closeModal: Function;
     selectedTemplate: Template;
+    returnToStart: Function;
 }
 
-const Modal: React.FC<Props> = ({ invitedGuests, uninvitedGuests, closeModal, selectedTemplate }) => {
+const Modal: React.FC<Props> = ({ invitedGuests, uninvitedGuests, closeModal, selectedTemplate, returnToStart }) => {
+
+    const URL = import.meta.env.VITE_API_URL;
 
     function getInvitedEmails () {
         let invitedEmails = [];
@@ -36,6 +39,35 @@ const Modal: React.FC<Props> = ({ invitedGuests, uninvitedGuests, closeModal, se
         return uninvitedEmails.join(', ');
     }
 
+    async function sendInvites () {
+        const response = await fetch(`${URL}/sendinvited`, {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                guests: invitedGuests
+            })
+        });
+        return response.json();
+    }
+
+    async function sendUninvites () {
+        const response = await fetch(`${URL}/senduninvited`, {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                guests: uninvitedGuests
+            })
+        });
+        return response.json();
+    }
+
+    async function sendEmails () {
+        await sendInvites();
+        await sendUninvites();
+        returnToStart();
+        return alert("Your invitations and uninvitations have been sent!");
+    }
+
     return (
         <>
             <div>
@@ -47,7 +79,7 @@ const Modal: React.FC<Props> = ({ invitedGuests, uninvitedGuests, closeModal, se
                 <br/>
                 Here is the template you've selected: {selectedTemplate.text}
                 <br/>
-                Ready to send? <button>Send invitations and uninvitations</button>
+                Ready to send? <button onClick={sendEmails}>Send invitations and uninvitations</button>
                 <br/>
                 <button onClick={() => closeModal()}>Close and go back</button>
             </div>

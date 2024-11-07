@@ -11,10 +11,14 @@ const transporter = nodemailer.createTransport({
 });
 
 const sendInvited = async (req, res) => {
+    let guestEmails = []
+    for (let guest of req.body.guests) {
+        guestEmails.push(guest.guest_email);
+    }
     try {
         await transporter.sendMail({
             from: `"Inviter Event Planning" <${process.env.EMAIL}>`,
-            to: "avalanchehobo@gmail.com",
+            to: guestEmails,
             subject: "You're invited!",
             html: "Congratulations you have won 10000 dollars click this link below and claim your prize!",
         });
@@ -27,11 +31,15 @@ const sendInvited = async (req, res) => {
 }
 
 const sendUninvited = async (req, res) => {
+    let guestEmails = []
+    for (let guest of req.body.guests) {
+        guestEmails.push(guest.guest_email);
+    }
     try {
         await transporter.sendMail({
             from: `"Inviter Event Planning" <${process.env.EMAIL}>`,
-            to: "avalanchehobo@gmail.com",
-            subject: "You're invited! Viagra",
+            to: guestEmails,
+            subject: "You're invited! Viagra Department",
             html: "Congratulations you have won 10000 dollars click this link below and claim your prize! <span style='display:inline-block; max-height:0; max-width:0;mso-font-width:0%;mso-style-textfill-type: none; white-space: nowrap;'><span style='max-height:1px; max-width:1px; display:inline-block; overflow:hidden; font-size:1px;color:rgba(0,0,0,0);text-indent:9px;'>hidden text</span></span>",
         });
         res.status(200).send({ message: "Email sent" });
