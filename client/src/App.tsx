@@ -148,29 +148,33 @@ export default function App({ userName, userId, returnToStart }: Props) {
 
   return (
     <>
-      <div>
-        <span className="italic">Welcome, {userName}</span><button onClick={() => returnToStart()}>Return to start</button>
-      </div>
-      <div>
-        <select id="invited" size={10}/>
-        <select id="uninvited" size={10}/>
-      </div>
-      <input placeholder="Enter an email address" type="text" onChange={e => setNewGuest(e.target.value)}></input>
-      <button onClick={inviteGuest}>Invite</button>
-      <button onClick={uninviteGuest}>Uninvite</button>
-      <div>
-        {templates.map((template, index) => (
-          <div className="templateCard" key={index}>
-            <div className="templateText">{template.text}</div>
-            <div className="templateSelect">
-              <button onClick={() => {openModal(template)}}>Select this template</button>
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+        <div>
+          <span className="italic">Welcome, {userName}</span><button onClick={() => returnToStart()}>Return to start</button>
+        </div>
+        <div>
+          <select id="invited" size={10}/>
+          <select id="uninvited" size={10}/>
+        </div>
+        <input placeholder="Enter an email address" type="text" onChange={e => setNewGuest(e.target.value)}></input>
+        <button onClick={inviteGuest}>Invite</button>
+        <button onClick={uninviteGuest}>Uninvite</button>
+        <div>
+          {templates.map((template, index) => (
+            <div className="templateCard" key={index}>
+              <div className="templateText">{template.text}</div>
+              <div className="templateSelect">
+                <button onClick={() => {openModal(template)}}>Select this template</button>
+              </div>
             </div>
+          ))}
+        </div>
+        {showModal && selectedTemplate && (
+          <div className="fixed top-0 left-0 w-full h-full bg-black/50 flex justify-center items-start overflow-y-auto pt-1">
+            <Modal invitedGuests={invitedGuests} uninvitedGuests={uninvitedGuests} closeModal={closeModal} selectedTemplate={selectedTemplate} returnToStart={returnToStart}/>
           </div>
-        ))}
+        )}
       </div>
-      {showModal && selectedTemplate && (
-        <div><Modal invitedGuests={invitedGuests} uninvitedGuests={uninvitedGuests} closeModal={closeModal} selectedTemplate={selectedTemplate} returnToStart={returnToStart}/></div>
-      )}
     </>
   )
 }
