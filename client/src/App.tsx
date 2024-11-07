@@ -124,7 +124,6 @@ export default function App({ userName, userId }: Props) {
     }
 
     function closeModal () {
-      console.log("close")
       setShowModal(false);
       setSelectedTemplate(null);
     }
@@ -132,31 +131,28 @@ export default function App({ userName, userId }: Props) {
 
   return (
     <>
-      {(showModal && selectedTemplate) ? (
+      <div>
+        <span className="italic">Welcome, {userName}</span>
+      </div>
+      <div>
+        <select id="invited" size={10}/>
+        <select id="uninvited" size={10}/>
+      </div>
+      <input placeholder="Enter an email address" type="text" onChange={e => setNewGuest(e.target.value)}></input>
+      <button onClick={inviteGuest}>Invite</button>
+      <button onClick={uninviteGuest}>Uninvite</button>
+      <div>
+        {templates.map((template, index) => (
+          <div className="templateCard" key={index}>
+            <div className="templateText">{template.text}</div>
+            <div className="templateSelect">
+              <button onClick={() => {selectATemplate(template); openModal()}}>Select this template</button>
+            </div>
+          </div>
+        ))}
+      </div>
+      {showModal && selectedTemplate && (
         <div><Modal closeModal={closeModal} selectedTemplate={selectedTemplate}/></div>
-      ) : (
-        <>
-          <div>
-            <span className="italic">Welcome, {userName}</span>
-          </div>
-          <div>
-            <select id="invited" size={10}/>
-            <select id="uninvited" size={10}/>
-          </div>
-          <input placeholder="Enter an email address" type="text" onChange={e => setNewGuest(e.target.value)}></input>
-          <button onClick={inviteGuest}>Invite</button>
-          <button onClick={uninviteGuest}>Uninvite</button>
-          <div>
-            {templates.map((template, index) => (
-              <div className="templateCard" key={index}>
-                <div className="templateText">{template.text}</div>
-                <div className="templateSelect">
-                  <button onClick={() => {selectATemplate(template); openModal()}}>Select this template</button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </>
       )}
     </>
   )

@@ -17,7 +17,7 @@ const Modal: React.FC<Props> = ({ closeModal, selectedTemplate }) => {
                 <br/>
                 {selectedTemplate.text}
                 <br/>
-                <button onClick={() => closeModal}>Close modal</button>
+                <button onClick={() => closeModal()}>Close modal</button>
             </div>
         </>
     )
