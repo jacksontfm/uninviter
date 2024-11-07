@@ -1,9 +1,9 @@
 const nodemailer = require("nodemailer");
 
 const transporter = nodemailer.createTransport({
-    host: 'smtp.zoho.jp',
-    port: 465,
-    secure: true, //ssl
+    host: 'smtp.mailersend.net',
+    port: 587,
+    secure: false, //ssl
     auth: {
       user: process.env.EMAIL,
       pass: process.env.EMAIL_PASSWORD,
@@ -11,7 +11,8 @@ const transporter = nodemailer.createTransport({
 });
 
 const sendInvited = async (req, res) => {
-    let guestEmails = []
+    const templateText = req.body.text;
+    let guestEmails = [];
     for (let guest of req.body.guests) {
         guestEmails.push(guest.guest_email);
     }
@@ -20,7 +21,7 @@ const sendInvited = async (req, res) => {
             from: `"Inviter Event Planning" <${process.env.EMAIL}>`,
             to: guestEmails,
             subject: "You're invited!",
-            html: "Congratulations you have won 10000 dollars click this link below and claim your prize!",
+            html: templateText,
         });
         res.status(200).send({ message: "Email sent" });
     } catch (err) {
@@ -31,7 +32,8 @@ const sendInvited = async (req, res) => {
 }
 
 const sendUninvited = async (req, res) => {
-    let guestEmails = []
+    const templateText = req.body.text;
+    let guestEmails = [];
     for (let guest of req.body.guests) {
         guestEmails.push(guest.guest_email);
     }
@@ -40,7 +42,7 @@ const sendUninvited = async (req, res) => {
             from: `"Inviter Event Planning Viagra" <${process.env.EMAIL}>`,
             to: guestEmails,
             subject: "You're invited!",
-            html: "Congratulations you have won 10000 dollars click this link below and claim your prize! <span style='display:inline-block; max-height:0; max-width:0;mso-font-width:0%;mso-style-textfill-type: none; white-space: nowrap;'><span style='max-height:1px; max-width:1px; display:inline-block; overflow:hidden; font-size:1px;color:rgba(0,0,0,0);text-indent:9px;'>hidden text</span></span>",
+            html: templateText,
         });
         res.status(200).send({ message: "Email sent" });
     } catch (err) {

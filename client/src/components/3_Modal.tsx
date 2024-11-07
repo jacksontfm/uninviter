@@ -43,7 +43,8 @@ const Modal: React.FC<Props> = ({ invitedGuests, uninvitedGuests, closeModal, se
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                guests: invitedGuests
+                guests: invitedGuests,
+                text: selectedTemplate.text
             })
         });
         return response.json();
@@ -54,7 +55,8 @@ const Modal: React.FC<Props> = ({ invitedGuests, uninvitedGuests, closeModal, se
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                guests: uninvitedGuests
+                guests: uninvitedGuests,
+                text: selectedTemplate.text
             })
         });
         return response.json();
