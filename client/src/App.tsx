@@ -30,8 +30,8 @@ export default function App({ userName, userId }: Props) {
     const [templates, setTemplates] = useState<Template[]>([]);
     const [selectedTemplate, setSelectedTemplate] = useState<Template | null>(null);
 
-    const invitedGuests:Guest[] = [];
-    const uninvitedGuests:Guest[] = [];
+    const [invitedGuests, setInvitedGuests] = useState<Guest[]>([]);
+    const [uninvitedGuests, setUninvitedGuests] = useState<Guest[]>([]);
 
     const URL = import.meta.env.VITE_API_URL;
 
@@ -82,25 +82,45 @@ export default function App({ userName, userId }: Props) {
     // };
 
     function inviteGuest () {
-        let invited = {
-            user_id: userId,
-            guest_email: newGuest,
-            invited: true
-        }
-        let invitedList = document.getElementById("invited");
-        invitedList?.append(createOption(invited));
-        invitedGuests.push(invited);
+      if (newGuest === "") {
+        return;
+      };
+      let invitedArr = invitedGuests;
+      let invited = {
+        user_id: userId,
+        guest_email: newGuest,
+        invited: true
+      }
+      let invitedList = document.getElementById("invited");
+      invitedList?.append(createOption(invited));
+      invitedArr.push(invited);
+      setInvitedGuests(invitedArr);
+      setNewGuest("");
+      let inputs = document.getElementsByTagName("input");
+      for (let input of inputs) {
+        input.value="";
+      };
     };
 
     function uninviteGuest () {
-        let uninvited = {
-            user_id: userId,
-            guest_email: newGuest,
-            invited: false
-        }
-        let uninvitedList = document.getElementById("uninvited");
-        uninvitedList?.append(createOption(uninvited));
-        uninvitedGuests.push(uninvited);
+      if (newGuest === "") {
+        return;
+      };
+      let uninvitedArr = uninvitedGuests;
+      let uninvited = {
+          user_id: userId,
+          guest_email: newGuest,
+          invited: false
+      }
+      let uninvitedList = document.getElementById("uninvited");
+      uninvitedList?.append(createOption(uninvited));
+      uninvitedArr.push(uninvited);
+      setUninvitedGuests(uninvitedArr);
+      setNewGuest("");
+      let inputs = document.getElementsByTagName("input");
+      for (let input of inputs) {
+        input.value="";
+      };
     };
 
     // function deleteGuest () {};
@@ -114,12 +134,9 @@ export default function App({ userName, userId }: Props) {
         }).then((res) => res.json()).then((res) => setTemplates(res));
     }
 
-    function selectATemplate (template: Template) {
-      setSelectedTemplate(template);
-    };
-
     //modal
-    function openModal () {
+    function openModal (template: Template) {
+      setSelectedTemplate(template);
       setShowModal(true);
     }
 
@@ -146,13 +163,13 @@ export default function App({ userName, userId }: Props) {
           <div className="templateCard" key={index}>
             <div className="templateText">{template.text}</div>
             <div className="templateSelect">
-              <button onClick={() => {selectATemplate(template); openModal()}}>Select this template</button>
+              <button onClick={() => {openModal(template)}}>Select this template</button>
             </div>
           </div>
         ))}
       </div>
       {showModal && selectedTemplate && (
-        <div><Modal closeModal={closeModal} selectedTemplate={selectedTemplate}/></div>
+        <div><Modal invitedGuests={invitedGuests} uninvitedGuests={uninvitedGuests} closeModal={closeModal} selectedTemplate={selectedTemplate}/></div>
       )}
     </>
   )
