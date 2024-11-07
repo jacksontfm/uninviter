@@ -3,7 +3,9 @@
 Welcome to Uninviter! This is a guilt-free system to "uninvite" guests to your party by sending their invitation emails directly to their spam folder.
 
 Uninviter is currently deployed on Render.
+
 The frontend can be found here: https://inviter-event-planning.onrender.com
+
 The backend can be found here: https://uninviter-backend.onrender.com
 
 # setup
