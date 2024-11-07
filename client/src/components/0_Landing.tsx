@@ -1,11 +1,15 @@
 import { useState } from 'react';
 import App from '../App.tsx';
 
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 export default function Landing() {
 
     const [loggedIn, setLoggedIn] = useState<boolean>(false);
     const [userName, setUserName] = useState<string>("");
     const [userId, setUserId] = useState<number>(0);
+    const [validEmail, setValidEmail] = useState<boolean>(false);
 
     const URL = import.meta.env.VITE_API_URL;
 
@@ -21,7 +25,8 @@ export default function Landing() {
     }
 
     async function login() {
-        if (validateEmail(userName)) {
+        validateEmail(userName);
+        if (validEmail) {
             const result = await loginHandler(userName);
             if(result.id) {
                 setLoggedIn(true);
@@ -32,13 +37,15 @@ export default function Landing() {
 
     function returnToStart() {
         setLoggedIn(false);
+        setValidEmail(false);
     }
 
     function validateEmail(userName: string) {
         if (userName.includes("@")) {
-            return true;
+            setValidEmail(true);
         } else {
-            alert("Please enter a valid email address"); 
+            setValidEmail(false);
+            return toast.warn(`Please enter a valid email address`); 
         }
     }
 
@@ -64,6 +71,14 @@ export default function Landing() {
                     </button>
                 </div>
             )}
+            <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop
+                closeOnClick
+                theme="light"
+            />
         </>
     )
 }
