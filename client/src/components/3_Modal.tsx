@@ -5,22 +5,20 @@ interface Template {
   };
 
 interface Props {
-    templates: Template[];
-    selectATemplate: Function;
-    selectedTemplate: Template | null;
+    closeModal: Function;
+    selectedTemplate: Template;
 }
 
-const Modal: React.FC<Props> = ({ templates, selectATemplate }) => {
+const Modal: React.FC<Props> = ({ closeModal, selectedTemplate }) => {
     return (
         <>
-            {templates.map((template, index) => (
-                <div className="templateCard" key={index}>
-                    <div className="templateText">{template.text}</div>
-                    <div className="templateSelect">
-                        <button onClick={selectATemplate(template)}>Select this template</button>
-                    </div>
-                </div>
-            ))}
+            <div>
+                This is the modal
+                <br/>
+                {selectedTemplate.text}
+                <br/>
+                <button onClick={() => closeModal}>Close modal</button>
+            </div>
         </>
     )
 }
