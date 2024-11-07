@@ -156,28 +156,61 @@ export default function App({ userName, userId, returnToStart }: Props) {
   return (
     <>
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-        <div>
-          <span className="italic">Welcome, {userName}</span><button onClick={() => returnToStart()}>Return to start</button>
+
+        {/* header */}
+        <div className="fixed w-full top-0 left-0 flex justify-between px-6 py-4 z-10">
+          <span className="italic py-2">Welcome, {userName}</span>
+          <h1 className="text-2xl font-bold text-gray-700">Uninviter</h1>
+          <button className="w-1/4 bg-blue-400 text-white rounded-lg py-2 hover:bg-blue-500 transition duration-200" onClick={() => returnToStart()}>Return to start</button>
         </div>
-        <div>
-          <select id="invited" size={10}/>
-          <select id="uninvited" size={10}/>
+
+        <div className="fixed left-20">
+          {/* invite columns */}
+          <div className="flex">
+            <div className="flex flex-col items-center justify-center">
+              <span className="font-bold text-gray-700">Invited guests</span>
+              <select className="border min-w-60 m-5" id="invited" size={10}/>
+            </div>
+            <div className="flex flex-col items-center justify-center">
+              <span className="font-bold text-gray-700">Uninvited guests</span>
+              <select className="border min-w-60 m-5" id="uninvited" size={10}/>
+            </div>
+          </div>
+          {/* invite field & buttons */}
+          <div className="flex flex-col items-center justify-center">
+            <input className="relative border min-w-96 text-center" placeholder="Enter an email address" type="text" onChange={e => setNewGuest(e.target.value)}></input>
+            <div className="flex items-center justify-center w-96 p-2">
+              <button 
+                className="mr-5 min-w-40 text-center p-5 bg-blue-400 text-white rounded-lg py-2 hover:bg-blue-500 transition duration-200"
+                onClick={inviteGuest}
+                >Invite
+              </button>
+              <button
+                className="ml-5 min-w-40 text-center p-5 bg-red-400 text-white rounded-lg py-2 hover:bg-red-500 transition duration-200"
+                onClick={uninviteGuest}
+                >Uninvite
+              </button>
+            </div>
+          </div>
         </div>
-        <input placeholder="Enter an email address" type="text" onChange={e => setNewGuest(e.target.value)}></input>
-        <button onClick={inviteGuest}>Invite</button>
-        <button onClick={uninviteGuest}>Uninvite</button>
-        <div>
+
+        {/* templates */}
+        <div className="fixed right-20 max-w-xl">
           {templates.map((template, index) => (
-            <div className="templateCard" key={index}>
-              <div className="templateText">{template.text}</div>
-              <div className="templateSelect">
-                <button onClick={() => {openModal(template)}}>Select this template</button>
-              </div>
+            <div className="border my-5" key={index}>
+              <div className="p-2 italic">{template.text}</div>
+              <button
+                className="ml-96 my-2 w-1/3 bg-blue-400 text-white rounded-lg p-2 hover:bg-blue-500 transition duration-200"
+                onClick={() => {openModal(template)}}
+                >Select this template
+              </button>
             </div>
           ))}
         </div>
+
+        {/* modal */}
         {showModal && selectedTemplate && (
-          <div className="fixed top-0 left-0 w-full h-full bg-black/50 flex justify-center items-start overflow-y-auto pt-1">
+          <div className="fixed z-10 top-0 left-0 w-full h-full bg-black/50 flex justify-center items-start overflow-y-auto pt-1">
             <Modal invitedGuests={invitedGuests} uninvitedGuests={uninvitedGuests} closeModal={closeModal} selectedTemplate={selectedTemplate} successToast={successToast}/>
           </div>
         )}

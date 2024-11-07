@@ -72,18 +72,18 @@ const Modal: React.FC<Props> = ({ invitedGuests, uninvitedGuests, closeModal, se
             <div className="my-auto flex flex-col min-h-96 bg-white p-5 rounded-lg w-4/5 overflow-y-auto box-border justify-center">
                 <h1 className="text-center text-2xl font-bold text-gray-700">Ready to send?</h1>
                 <br/>
-                <span>Here are your invited guests:</span>
+                <span className="font-bold text-gray-700">Here are your invited guests:</span>
                 <span className="text-center p-2">{getInvitedEmails()}</span>
                 <br/>
-                <span>Here are your uninvited guests:</span>
+                <span className="font-bold text-gray-700">Here are your uninvited guests:</span>
                 <span className="text-center p-2">{getUninvitedEmails()}</span>
                 <br/>
-                <span>Here is the template you've selected:</span>
-                <span className="text-center p-2">{selectedTemplate.text}</span>
+                <span className="font-bold text-gray-700">Here is the template you've selected:</span>
+                <span className="p-2">{selectedTemplate.text}</span>
                 <br/>
                 <div className="flex flex-col justify-center items-center">
                     <button
-                        className="w-1/3 bg-green-400 text-white rounded-lg py-2 mt-4 hover:bg-green-500 transition duration-200"
+                        className="w-1/3 bg-blue-400 text-white rounded-lg py-2 mt-4 hover:bg-blue-500 transition duration-200"
                         onClick={sendEmails}
                         >Send invites
                     </button>

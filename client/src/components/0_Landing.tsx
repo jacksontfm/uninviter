@@ -53,7 +53,7 @@ export default function Landing() {
             ) : (
                 <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
                     <h1 className="text-2xl font-bold text-gray-700">Inviter</h1>
-                    <div className="block text-sm font-medium text-gray-600">Enter your email address to get started:</div>
+                    <div className="block text-sm font-medium text-gray-600">Enter your email address to get started</div>
                     <br/>
                     <input
                         className="border border-gray-300 rounded-lg p-2 w-1/2"
