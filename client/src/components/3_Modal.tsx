@@ -70,18 +70,30 @@ const Modal: React.FC<Props> = ({ invitedGuests, uninvitedGuests, closeModal, se
 
     return (
         <>
-            <div>
-                This is the modal
+            <div className="my-auto flex flex-col min-h-96 bg-white p-5 rounded-lg w-4/5 overflow-y-auto box-border justify-center">
+                <h1 className="text-center text-2xl font-bold text-gray-700">Ready to send?</h1>
                 <br/>
-                Here are your invited guests: {getInvitedEmails()}
+                <span>Here are your invited guests:</span>
+                <span className="text-center p-2">{getInvitedEmails()}</span>
                 <br/>
-                Here are your uninvited guests: {getUninvitedEmails()}
+                <span>Here are your uninvited guests:</span>
+                <span className="text-center p-2">{getUninvitedEmails()}</span>
                 <br/>
-                Here is the template you've selected: {selectedTemplate.text}
+                <span>Here is the template you've selected:</span>
+                <span className="text-center p-2">{selectedTemplate.text}</span>
                 <br/>
-                Ready to send? <button onClick={sendEmails}>Send invitations and uninvitations</button>
-                <br/>
-                <button onClick={() => closeModal()}>Close and go back</button>
+                <div className="flex flex-col justify-center items-center">
+                    <button
+                        className="w-1/3 bg-green-400 text-white rounded-lg py-2 mt-4 hover:bg-green-500 transition duration-200"
+                        onClick={sendEmails}
+                        >Send invites
+                    </button>
+                    <button
+                        className="w-1/3 bg-red-400 text-white rounded-lg py-2 mt-4 hover:bg-red-500 transition duration-200"
+                        onClick={() => closeModal()}
+                        >Close and go back
+                    </button>
+                </div>
             </div>
         </>
     )
