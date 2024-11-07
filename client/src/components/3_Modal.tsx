@@ -1,4 +1,3 @@
-
 interface Template {
     id: number;
     text: string;
@@ -16,10 +15,10 @@ interface Props {
     uninvitedGuests: Guest[];
     closeModal: Function;
     selectedTemplate: Template;
-    returnToStart: Function;
+    successToast: Function;
 }
 
-const Modal: React.FC<Props> = ({ invitedGuests, uninvitedGuests, closeModal, selectedTemplate, returnToStart }) => {
+const Modal: React.FC<Props> = ({ invitedGuests, uninvitedGuests, closeModal, selectedTemplate, successToast }) => {
 
     const URL = import.meta.env.VITE_API_URL;
 
@@ -64,8 +63,8 @@ const Modal: React.FC<Props> = ({ invitedGuests, uninvitedGuests, closeModal, se
     async function sendEmails () {
         await sendInvites();
         await sendUninvites();
-        returnToStart();
-        return alert("Your invitations and uninvitations have been sent!");
+        successToast();
+        closeModal();
     }
 
     return (

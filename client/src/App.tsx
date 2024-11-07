@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react';
 import Modal from './components/3_Modal.tsx';
 import './app.css'
 
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 interface Props {
   userName: string;
   userId: number;
@@ -145,6 +148,10 @@ export default function App({ userName, userId, returnToStart }: Props) {
       setSelectedTemplate(null);
     }
 
+    function successToast () {
+      return toast(`Your invitations and uninvitations have been sent!`);
+    }
+
 
   return (
     <>
@@ -171,10 +178,18 @@ export default function App({ userName, userId, returnToStart }: Props) {
         </div>
         {showModal && selectedTemplate && (
           <div className="fixed top-0 left-0 w-full h-full bg-black/50 flex justify-center items-start overflow-y-auto pt-1">
-            <Modal invitedGuests={invitedGuests} uninvitedGuests={uninvitedGuests} closeModal={closeModal} selectedTemplate={selectedTemplate} returnToStart={returnToStart}/>
+            <Modal invitedGuests={invitedGuests} uninvitedGuests={uninvitedGuests} closeModal={closeModal} selectedTemplate={selectedTemplate} successToast={successToast}/>
           </div>
         )}
       </div>
+      <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop
+                closeOnClick
+                theme="light"
+            />
     </>
   )
 }
