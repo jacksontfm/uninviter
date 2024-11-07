@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const templatesController = require('./controllers/templates_controller.js');
 const usersController = require('./controllers/users_controller.js');
 const guestsController = require('./controllers/guests_controller.js');
+const mailController = require('./controllers/mail_controller.js');
 
 const app = express();
 const PORT = process.env.PORT;
@@ -38,3 +39,7 @@ app.get("/templates", templatesController.getTemplates);
 app.post("/templates", templatesController.createTemplate);
 app.patch("/templates", templatesController.editTemplate);
 app.delete("/templates", templatesController.deleteTemplate);
+
+//sending email
+app.post("/sendinvited", mailController.sendInvited);
+app.post("/senduninvited", mailController.sendUninvited);
