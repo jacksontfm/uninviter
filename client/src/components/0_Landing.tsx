@@ -47,16 +47,21 @@ export default function Landing() {
             {loggedIn ? (
                 <App userName={userName} userId={userId} returnToStart={returnToStart}/>
             ) : (
-                <div>
-                    <h1>Inviter</h1>
-                    <div>Enter your email address to get started:</div>
+                <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+                    <h1 className="text-2xl font-bold text-gray-700">Inviter</h1>
+                    <div className="block text-sm font-medium text-gray-600">Enter your email address to get started:</div>
                     <br/>
                     <input
+                        className="border border-gray-300 rounded-lg p-2 w-1/2"
                         placeholder="Email address"
                         onChange={e => setUserName(e.target.value)}
                     />
                     <br/>
-                    <button onClick={login}>Next</button>
+                    <button
+                        className="w-1/3 bg-red-400 text-white rounded-lg py-2 mt-4 hover:bg-red-500 transition duration-200"
+                        onClick={login}
+                        >Next
+                    </button>
                 </div>
             )}
         </>
